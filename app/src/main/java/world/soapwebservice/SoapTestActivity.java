@@ -46,30 +46,24 @@ public class SoapTestActivity extends Activity {
                 try {
                     // prepare SOAP REQUEST (namespace, method, arguments)
                     SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-                    Log.d("SOAP-G-SHIT", "Request: -> " + request);
 
                     // passing primitive (simple) input parameters
-                    request.addProperty("home", "Winterfell Castle");
-                    Log.d("SOAP-G-SHIT", "Passing Input: -> " + request);
+                    request.addProperty("home", "IAO KOSALA");
 
                     // prepare ENVELOPE put request inside
                     SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
                     envelope.dotNet = true;
                     envelope.setOutputSoapObject(request);
-                    Log.d("SOAP-G-GHIT", "ENVOLOPE: -> " + envelope);
 
                     // tell the type of complex object to be returned by service
                     envelope.addMapping(NAMESPACE, METHOD_NAME, new ArrayList<Person>().getClass());
-                    Log.d("SOAP-G-SHIT", "TELL THE TYPE TO BE RETURNED: -> " + envelope);
 
                     // TRANSPORT envelope to destination set by URL (call & wait)
                     HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
                     androidHttpTransport.call(NAMESPACE + METHOD_NAME, envelope);
-                    Log.d("SOAP-G-SHIT", "TRANSPORT THE ENVELOPE: -> " + androidHttpTransport);
 
                     // receiving a complex response object (list of Person objects)
                     SoapObject response = (SoapObject) envelope.getResponse();
-                    Log.d("SOAP-G-SHIT", "RESPONSE: -> " + response);
 
                     if (response == null) {
                         resultValue = "NULL response received";
